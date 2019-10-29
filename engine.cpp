@@ -7,8 +7,11 @@ Engine::Engine(Player pone, Player ptwo){
 int Engine::game(bool verbose){
     std::tuple<int, int> zet;
     for (int i=0;i<81;i++){
-
-        zet = pone.decide_move(this->board.get_board(), this->board.get_legal());
+        if (this->board.get_turn() == 1){
+            zet = this->pone.decide_move(this->board.get_board(), this->board.get_legal());
+        } else {
+            zet = this->ptwo.decide_move(this->board.get_board(), this->board.get_legal());
+        }
         this->status = this->board.parse_move(std::get<0>(zet), std::get<1>(zet));
 
         if (verbose){
